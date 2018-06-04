@@ -47,6 +47,21 @@ public abstract class ImeiRetrofitCliente {
                 .registerTypeAdapter(PagosAsignaturas.class, (JsonDeserializer<PagosAsignaturas>) (json, typeOfT, context) -> {
                     return new Gson().fromJson(json, PagosAsignaturas.class);
                 })
+                .registerTypeAdapter(Opciones.class, (JsonDeserializer<Opciones>) (json, typeOfT, context) -> {
+                    return new Gson().fromJson(json, Opciones.class);
+                })
+                .registerTypeAdapter(InformacionPlanteles.class, (JsonDeserializer<InformacionPlanteles>) (json, typeOfT, context) -> {
+                    return new Gson().fromJson(json, InformacionPlanteles.class);
+                })
+                .registerTypeAdapter(EnviarInformacion.class, (JsonDeserializer<EnviarInformacion>) (json, typeOfT, context) -> {
+                    return new Gson().fromJson(json, EnviarInformacion.class);
+                })
+                .registerTypeAdapter(Foto.class, (JsonDeserializer<Foto>) (json, typeOfT, context) -> {
+                    return new Gson().fromJson(json, Foto.class);
+                })
+                .registerTypeAdapter(DescargaBoleta.class, (JsonDeserializer<DescargaBoleta>) (json, typeOfT, context) -> {
+                    return new Gson().fromJson(json, DescargaBoleta.class);
+                })
                 .create();
     }
 

@@ -29,7 +29,7 @@ public class ImeiPresenter extends Presenter<ImeiPresenter.View> {
         setView(null);
     }
 
-    /*public void consultaListaOpciones() {
+    public void consultaListaOpciones() {
         getView().showLoading();
         Disposable disposable = imeiInteractor.consultaListaOpciones().subscribe(opciones -> {
             if (opciones == null) {
@@ -44,6 +44,7 @@ public class ImeiPresenter extends Presenter<ImeiPresenter.View> {
             getView().hideLoading();
             getView().showError(throwable.getMessage());
         });
+        //}, Throwable::printStackTrace);
 
         addDisposableObserver(disposable);
     }
@@ -52,14 +53,17 @@ public class ImeiPresenter extends Presenter<ImeiPresenter.View> {
         getView().showLoading();
         Disposable disposable = imeiInteractor.consultaListaPlanteles().subscribe(informacionPlanteles -> {
             if (informacionPlanteles == null) {
-                getView().showError();
+                getView().showError(null);
             } else {
-                //Logger.json(new Gson().toJson(informacionPlanteles));
+                Logger.json(new Gson().toJson(informacionPlanteles));
                 //Log.i("RLM", new Gson().toJson(informacionPlanteles));
                 getView().hideLoading();
                 getView().despliegaPlanteles(informacionPlanteles);
             }
-        }, Throwable::printStackTrace);
+        }, throwable -> {
+            getView().hideLoading();
+            getView().showError(throwable.getMessage());
+        });
 
         addDisposableObserver(disposable);
     }
@@ -68,17 +72,20 @@ public class ImeiPresenter extends Presenter<ImeiPresenter.View> {
         getView().showLoading();
         Disposable disposable = imeiInteractor.enviarInformacion(nombre, telefono, correo, comentarios, interes).subscribe(enviarInformacion -> {
             if (enviarInformacion == null) {
-                getView().showError();
+                getView().showError(null);
             } else {
-                //Logger.json(new Gson().toJson(enviarInformacion));
+                Logger.json(new Gson().toJson(enviarInformacion));
                 //Log.i("RLM", new Gson().toJson(enviarInformacion));
                 getView().hideLoading();
                 getView().respuestaEnvioInformacion(enviarInformacion);
             }
-        }, Throwable::printStackTrace);
+        }, throwable -> {
+            getView().hideLoading();
+            getView().showError(throwable.getMessage());
+        });
 
         addDisposableObserver(disposable);
-    }*/
+    }
 
     public void autentificaUsuario(String matricula, String password) {
         getView().showLoading();
