@@ -15,5 +15,5 @@ import dagger.Component;
 public interface ClienteComponent {
     void inject(ToolBarActivity toolBarActivity);
     void inject(LoginActivity loginActivity);
-    //void inject(BaseActivity baseActivity);
+    void inject(BaseActivity baseActivity);
 }

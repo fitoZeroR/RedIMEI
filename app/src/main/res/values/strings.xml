@@ -58,6 +58,7 @@
     <string name="msg_seleccione_opcion">Seleccione una opción:</string>
     <string name="msg_compartir_archivo">Compartir usando:</string>
     <string name="msg_actualiza_imagen">¿Deseas conservar esta imagen?</string>
+    <string name="txt_buscar">Buscar</string>
 
     <string name="action.cancel">Cancelar</string>
     <string name="action.accept">Aceptar</string>

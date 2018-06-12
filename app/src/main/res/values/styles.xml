@@ -33,7 +33,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_marginBottom">10dp</item>
+        <!--<item name="android:layout_marginBottom">10dp</item>-->
         <item name="android:background">@color/blanco</item>
         <item name="android:textColor">@color/colorAccent</item>
     </style>
@@ -65,6 +65,16 @@
     <style name="Style_til_login">
         <item name="colorAccent">@color/blanco</item>
         <item name="android:textColorHint">@color/blanco</item>
+    </style>
+
+    <style name="EditTextFind">
+        <item name="android:textSize">17sp</item>
+        <item name="android:padding">7dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">#FFFFFF</item>
+        <item name="android:textColorHint">@color/colorPrimary</item>
     </style>
 
 </resources>

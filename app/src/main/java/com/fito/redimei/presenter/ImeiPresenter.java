@@ -125,20 +125,23 @@ public class ImeiPresenter extends Presenter<ImeiPresenter.View> {
         addDisposableObserver(disposable);
     }
 
-    /*public void enviarImagen(String tokenSesion, String imagen) {
+    public void enviarImagen(String tokenSesion, String imagen) {
         getView().showLoading();
         Disposable disposable = imeiInteractor.enviarFoto(tokenSesion, imagen).subscribe(foto -> {
             if (foto == null) {
-                getView().showError();
+                getView().showError(null);
             } else {
-                //Logger.json(new Gson().toJson(foto));
+                Logger.json(new Gson().toJson(foto));
                 //Log.i("RLM", new Gson().toJson(foto));
                 getView().hideLoading();
             }
-        }, Throwable::printStackTrace);
+        },  throwable -> {
+            getView().hideLoading();
+            getView().showError(throwable.getMessage());
+        });
 
         addDisposableObserver(disposable);
-    }*/
+    }
 
     public void consultaListaAsignaturasPagos(String tokenSesion) {
         //getView().showLoading();
@@ -159,22 +162,25 @@ public class ImeiPresenter extends Presenter<ImeiPresenter.View> {
         addDisposableObserver(disposable);
     }
 
-    /*public void descargaBoleta(String tokenSesion) {
+    public void descargaBoleta(String tokenSesion) {
         getView().showLoading();
         Disposable disposable = imeiInteractor.descargaBoleta(tokenSesion).subscribe(descargaBoleta -> {
             if (descargaBoleta == null) {
-                getView().showError();
+                getView().showError(null);
             } else {
                 Logger.json(new Gson().toJson(descargaBoleta));
-                Log.i("RLM", new Gson().toJson(descargaBoleta));
+                //Log.i("RLM", new Gson().toJson(descargaBoleta));
 
                 getView().hideLoading();
                 getView().compartirBoleta(descargaBoleta);
             }
-        }, Throwable::printStackTrace);
+        }, throwable -> {
+            getView().hideLoading();
+            getView().showError(throwable.getMessage());
+        });
 
         addDisposableObserver(disposable);
-    }*/
+    }
 
     public interface View extends Presenter.View {
         void showLoading();
