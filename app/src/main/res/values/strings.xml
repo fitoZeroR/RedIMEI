@@ -39,6 +39,7 @@
     <string name="title_fragment_pagos">Pagos</string>
     <string name="title_fragment_asignaturas">Asignaturas</string>
     <string name="title_fragment_directorio">Directorio</string>
+    <string name="title_fragment_estadisticas">Estadisticas</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

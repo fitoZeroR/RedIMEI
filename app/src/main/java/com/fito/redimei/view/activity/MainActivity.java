@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -34,6 +35,7 @@ import com.fito.redimei.modelo.*;
 import com.fito.redimei.picasso.PicassoCircleTransformation;
 import com.fito.redimei.view.fragment.AsignaturasFragment;
 import com.fito.redimei.view.fragment.DirectorioFragment;
+import com.fito.redimei.view.fragment.EstadisticasFragment;
 import com.fito.redimei.view.fragment.PagosFragment;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -287,14 +289,22 @@ public class MainActivity extends BaseActivity {
                 case R.id.menu_pagos_item:
                     selectedFragment = PagosFragment.newInstance(pagosAsignaturas.getData().getPagos());
                     setTitle(getString(R.string.title_fragment_pagos));
+                    filtroEdt.setVisibility(View.VISIBLE);
                     break;
                 case R.id.menu_asignaturas_item:
                     selectedFragment = AsignaturasFragment.newInstance(pagosAsignaturas.getData().getPlan());
                     setTitle(getString(R.string.title_fragment_asignaturas));
+                    filtroEdt.setVisibility(View.VISIBLE);
+                    break;
+                case R.id.menu_estadisticas_item:
+                    selectedFragment = EstadisticasFragment.newInstance(pagosAsignaturas.getData().getPagos(), pagosAsignaturas.getData().getPlan());
+                    setTitle(getString(R.string.title_fragment_estadisticas));
+                    filtroEdt.setVisibility(View.GONE);
                     break;
                 case R.id.menu_directorio_item:
                     selectedFragment = DirectorioFragment.newInstance();
                     setTitle(getString(R.string.title_fragment_directorio));
+                    filtroEdt.setVisibility(View.GONE);
                     break;
             }
             addFragment(selectedFragment, R.id.frame_container, true);

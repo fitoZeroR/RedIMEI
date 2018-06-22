@@ -9,6 +9,10 @@
         android:icon="@mipmap/asignaturas"
         android:title="@string/title_fragment_asignaturas"/>
     <item
+        android:id="@+id/menu_estadisticas_item"
+        android:icon="@drawable/ic_pie_chart"
+        android:title="@string/title_fragment_estadisticas"/>
+    <item
         android:id="@+id/menu_directorio_item"
         android:icon="@mipmap/directorio"
         android:title="@string/title_fragment_directorio"/>

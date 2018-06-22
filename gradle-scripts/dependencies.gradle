@@ -66,6 +66,12 @@ ext {
             picasso: "com.squareup.picasso:picasso:${picassoVersion}"
     ]
 
+    //MPAndroidChartVersion = 'v3.0.3'
+    MPAndroidChartVersion = 'v2.0.9'
+    MPAndroidChartDependencies = [
+            MPAndroidChart: "com.github.PhilJay:MPAndroidChart:${MPAndroidChartVersion}"
+    ]
+
     commonsVersion = '2.6'
     commonsDependencies = [
             commons: "commons-io:commons-io:${commonsVersion}"

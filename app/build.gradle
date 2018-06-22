@@ -23,9 +23,12 @@ android {
     }
 }
 
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     // Support Libraries
     implementation supportDependencies.support
     implementation supportDependencies.design
@@ -39,9 +42,6 @@ dependencies {
     implementation constraintDependencies.constraintLayout
     // dagger 2
     implementation dagger2Dependencies.dagger
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    implementation 'com.google.android.gms:play-services-maps:15.0.1'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
     annotationProcessor dagger2Dependencies.daggerCompiler
     compileOnly dagger2Dependencies.daggerAnnotations
     // ButterKnife
@@ -65,6 +65,8 @@ dependencies {
     implementation gsonDependencies.gson
     // Picasso
     implementation picassoDependencies.picasso
+    // MPAndroidChart
+    implementation MPAndroidChartDependencies.MPAndroidChart
     // Commons
     implementation commonsDependencies.commons
     // testing
