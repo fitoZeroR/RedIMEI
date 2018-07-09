@@ -57,6 +57,7 @@
             android:parentActivityName=".view.activity.OpcionesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <!--suppress AndroidDomInspection -->
         <activity
             android:name=".view.activity.DescripcionActivity"
             android:parentActivityName=".view.activity.OpcionesActivity|.view.activity.ListaOpcionSeleccionadaActivity"

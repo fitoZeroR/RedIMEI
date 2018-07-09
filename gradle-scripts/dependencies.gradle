@@ -32,6 +32,11 @@ ext {
             converter_gson : "com.squareup.retrofit2:converter-gson:${squareVersion}"
     ]
 
+    okhttp3Version = '3.10.0'
+    okhttp3Dependencies = [
+            okhttp3 : "com.squareup.okhttp3:okhttp:${okhttp3Version}"
+    ]
+
     rxandroidVersion = '2.0.2'
     rxjavaVersion = '2.1.14'
     rxbindingVersion = '2.1.1'

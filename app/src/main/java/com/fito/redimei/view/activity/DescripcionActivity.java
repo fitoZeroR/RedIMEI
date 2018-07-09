@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.fito.redimei.R;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 
 import static com.fito.redimei.utils.Constantes.*;
@@ -19,7 +21,7 @@ public class DescripcionActivity extends ToolBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_chevron_left);
 
         Bundle bundle = getIntent().getExtras();
         String descripcion = null;

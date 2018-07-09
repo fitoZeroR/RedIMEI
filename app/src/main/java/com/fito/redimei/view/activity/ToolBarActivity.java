@@ -18,6 +18,8 @@ import com.fito.redimei.di.modules.ClienteModule;
 import com.fito.redimei.modelo.*;
 import com.fito.redimei.presenter.ImeiPresenter;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -45,7 +47,7 @@ public abstract class ToolBarActivity extends AppCompatActivity implements ImeiP
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
             //getSupportActionBar().setHomeAsUpIndicator(R.drawable.selector_home);
         }
 

@@ -1,5 +1,6 @@
 package com.fito.redimei.view.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.constraint.Group;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,10 +26,10 @@ import io.reactivex.subjects.PublishSubject;
  */
 
 public class CustomAdapterOpciones extends RecyclerView.Adapter<CustomAdapterOpciones.OpcionesViewHolder> {
-    private List<String> listaOpciones;
-    private List<Grado> gradoList;
-    private EListado eListado;
-    private PublishSubject<View> mViewClickSubject;
+    private final List<String> listaOpciones;
+    private final List<Grado> gradoList;
+    private final EListado eListado;
+    private final PublishSubject<View> mViewClickSubject;
 
     public CustomAdapterOpciones(List<String> listaOpciones, List<Grado> gradoList, EListado eListado) {
         this.listaOpciones = listaOpciones;
@@ -37,8 +38,9 @@ public class CustomAdapterOpciones extends RecyclerView.Adapter<CustomAdapterOpc
         mViewClickSubject = PublishSubject.create();
     }
 
+    @NonNull
     @Override
-    public OpcionesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public OpcionesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_opciones, parent, false);
         OpcionesViewHolder opcionesViewHolder = new OpcionesViewHolder(itemView);
 
@@ -47,21 +49,25 @@ public class CustomAdapterOpciones extends RecyclerView.Adapter<CustomAdapterOpc
                 .map(aVoid -> itemView)
                 .subscribe(mViewClickSubject);
 
-        if (eListado == EListado.SELECCIONA_OPCION) {
-            opcionesViewHolder.rllSeleccionaOpcion.setVisibility(View.VISIBLE);
-            opcionesViewHolder.rllOpcion.setVisibility(View.GONE);
-            opcionesViewHolder.rllSeleccionaOpcionTitulo.setVisibility(View.GONE);
-            opcionesViewHolder.rllOpcionSinFlecha.setVisibility(View.GONE);
-        } else if (eListado == EListado.SELECCIONA_OPCION_SIN_PLANTEL) {
-            opcionesViewHolder.rllSeleccionaOpcion.setVisibility(View.GONE);
-            opcionesViewHolder.rllOpcion.setVisibility(View.GONE);
-            opcionesViewHolder.rllSeleccionaOpcionTitulo.setVisibility(View.VISIBLE);
-            opcionesViewHolder.rllOpcionSinFlecha.setVisibility(View.GONE);
-        } else if (eListado == EListado.SELECCIONA_OPCION_DIPLOMADO) {
-            opcionesViewHolder.rllSeleccionaOpcion.setVisibility(View.GONE);
-            opcionesViewHolder.rllOpcion.setVisibility(View.GONE);
-            opcionesViewHolder.rllSeleccionaOpcionTitulo.setVisibility(View.GONE);
-            opcionesViewHolder.rllOpcionSinFlecha.setVisibility(View.VISIBLE);
+        switch (eListado) {
+            case SELECCIONA_OPCION:
+                opcionesViewHolder.rllSeleccionaOpcion.setVisibility(View.VISIBLE);
+                opcionesViewHolder.rllOpcion.setVisibility(View.GONE);
+                opcionesViewHolder.rllSeleccionaOpcionTitulo.setVisibility(View.GONE);
+                opcionesViewHolder.rllOpcionSinFlecha.setVisibility(View.GONE);
+                break;
+            case SELECCIONA_OPCION_SIN_PLANTEL:
+                opcionesViewHolder.rllSeleccionaOpcion.setVisibility(View.GONE);
+                opcionesViewHolder.rllOpcion.setVisibility(View.GONE);
+                opcionesViewHolder.rllSeleccionaOpcionTitulo.setVisibility(View.VISIBLE);
+                opcionesViewHolder.rllOpcionSinFlecha.setVisibility(View.GONE);
+                break;
+            case SELECCIONA_OPCION_DIPLOMADO:
+                opcionesViewHolder.rllSeleccionaOpcion.setVisibility(View.GONE);
+                opcionesViewHolder.rllOpcion.setVisibility(View.GONE);
+                opcionesViewHolder.rllSeleccionaOpcionTitulo.setVisibility(View.GONE);
+                opcionesViewHolder.rllOpcionSinFlecha.setVisibility(View.VISIBLE);
+                break;
         }
         /*if (eListado == EListado.SELECCIONA_OPCION || eListado == EListado.SELECCIONA_OPCION_SIN_PLANTEL) {
             opcionesViewHolder.rllSeleccionaOpcion.setVisibility(View.VISIBLE);
@@ -71,16 +77,21 @@ public class CustomAdapterOpciones extends RecyclerView.Adapter<CustomAdapterOpc
     }
 
     @Override
-    public void onBindViewHolder(OpcionesViewHolder holder, int position) {
-        if (eListado == EListado.SELECCIONA_OPCION) {
-            holder.txvTitulo.setText(gradoList.get(position).getTitulo());
-            holder.txvPlanteles.setText(gradoList.get(position).getPlanteles());
-        } else if (eListado == EListado.SELECCIONA_OPCION_SIN_PLANTEL) {
-            holder.txvTituloSinPlantel.setText(gradoList.get(position).getTitulo());
-        } else if (eListado == EListado.SELECCIONA_OPCION_DIPLOMADO) {
-            holder.textoOpcionesSinFlecha.setText(listaOpciones.get(position));
-        } else {
-            holder.txtOpciones.setText(listaOpciones.get(position));
+    public void onBindViewHolder(@NonNull OpcionesViewHolder holder, int position) {
+        switch (eListado) {
+            case SELECCIONA_OPCION:
+                holder.txvTitulo.setText(gradoList.get(position).getTitulo());
+                holder.txvPlanteles.setText(gradoList.get(position).getPlanteles());
+                break;
+            case SELECCIONA_OPCION_SIN_PLANTEL:
+                holder.txvTituloSinPlantel.setText(gradoList.get(position).getTitulo());
+                break;
+            case SELECCIONA_OPCION_DIPLOMADO:
+                holder.textoOpcionesSinFlecha.setText(listaOpciones.get(position));
+                break;
+            default:
+                holder.txtOpciones.setText(listaOpciones.get(position));
+                break;
         }
 
         /*if (eListado == EListado.OPCION || eListado == EListado.SELECCIONA_OPCION_DIPLOMADO) {
@@ -138,7 +149,7 @@ public class CustomAdapterOpciones extends RecyclerView.Adapter<CustomAdapterOpc
         @BindView(R.id.img_flecha_derecha_id)
         ImageView imgFlechaDerecha;
 
-        public OpcionesViewHolder(View itemView) {
+        OpcionesViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

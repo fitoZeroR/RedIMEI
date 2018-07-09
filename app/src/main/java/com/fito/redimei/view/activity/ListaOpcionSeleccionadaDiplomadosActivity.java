@@ -10,6 +10,7 @@ import com.fito.redimei.enumeradores.EListado;
 import com.fito.redimei.view.adapter.CustomAdapterOpciones;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 
@@ -24,7 +25,7 @@ public class ListaOpcionSeleccionadaDiplomadosActivity extends ToolBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_chevron_left);
 
         Bundle bundleExtras = getIntent().getExtras();
         if (bundleExtras != null) {

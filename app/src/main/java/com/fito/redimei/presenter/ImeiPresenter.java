@@ -1,7 +1,5 @@
 package com.fito.redimei.presenter;
 
-import android.util.Log;
-
 import com.fito.redimei.interactor.ImeiInteractor;
 import com.fito.redimei.modelo.*;
 import com.google.gson.Gson;
@@ -16,7 +14,7 @@ import io.reactivex.disposables.Disposable;
  */
 
 public class ImeiPresenter extends Presenter<ImeiPresenter.View> {
-    private ImeiInteractor imeiInteractor;
+    private final ImeiInteractor imeiInteractor;
 
     @Inject
     public ImeiPresenter(ImeiInteractor imeiInteractor) {

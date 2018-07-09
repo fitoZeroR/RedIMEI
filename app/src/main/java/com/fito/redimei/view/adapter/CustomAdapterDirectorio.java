@@ -1,5 +1,6 @@
 package com.fito.redimei.view.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,9 @@ import io.reactivex.subjects.PublishSubject;
  */
 
 public class CustomAdapterDirectorio extends RecyclerView.Adapter<CustomAdapterDirectorio.DirectorioViewHolder> {
-    private List<String> listaPlanteles, listaTelefonos;
-    private PublishSubject<View> mViewClickSubject;
+    private final List<String> listaPlanteles;
+    private final List<String> listaTelefonos;
+    private final PublishSubject<View> mViewClickSubject;
 
     public CustomAdapterDirectorio(List<String> listaPlanteles, List<String> listaTelefonos) {
         this.listaPlanteles = listaPlanteles;
@@ -30,8 +32,9 @@ public class CustomAdapterDirectorio extends RecyclerView.Adapter<CustomAdapterD
         mViewClickSubject = PublishSubject.create();
     }
 
+    @NonNull
     @Override
-    public DirectorioViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DirectorioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_directorio, parent, false);
 
         RxView.clicks(itemView)
@@ -43,7 +46,7 @@ public class CustomAdapterDirectorio extends RecyclerView.Adapter<CustomAdapterD
     }
 
     @Override
-    public void onBindViewHolder(DirectorioViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DirectorioViewHolder holder, int position) {
         holder.txvPlantel.setText(listaPlanteles.get(position));
         holder.txvTelefono.setText(listaTelefonos.get(position));
     }
@@ -63,7 +66,7 @@ public class CustomAdapterDirectorio extends RecyclerView.Adapter<CustomAdapterD
         @BindView(R.id.txv_telefono_id)
         TextView txvTelefono;
 
-        public DirectorioViewHolder(View itemView) {
+        DirectorioViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

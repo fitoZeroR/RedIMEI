@@ -15,6 +15,7 @@ import com.fito.redimei.R;
 import com.fito.redimei.modelo.EnviarInformacion;
 import com.jakewharton.rxbinding2.view.RxView;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -33,7 +34,7 @@ public class EnviarInformacionActivity extends ToolBarActivity {
     @BindView(R.id.btn_enviar_informacion_id)
     Button btnEnviarInformacion;
 
-    private Handler mHandler = new Handler(Looper.getMainLooper()) {
+    private final Handler mHandler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
             switch(msg.what){
@@ -52,7 +53,7 @@ public class EnviarInformacionActivity extends ToolBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_chevron_left);
 
         RxView.clicks(btnEnviarInformacion)
                 .debounce(500, TimeUnit.MILLISECONDS)
@@ -83,9 +84,7 @@ public class EnviarInformacionActivity extends ToolBarActivity {
             MenuItem item = menu.getItem(i);
             int iconMenuVisible = R.id.menu_editar_item;
             if (item.getItemId() == iconMenuVisible) {
-                if (iconMenuVisible == R.id.menu_editar_item) {
-                    item.setVisible(false);
-                }
+                item.setVisible(false);
             }
         }
         return true;

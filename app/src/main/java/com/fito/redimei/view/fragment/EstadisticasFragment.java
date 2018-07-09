@@ -2,6 +2,7 @@ package com.fito.redimei.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +43,7 @@ public class EstadisticasFragment extends Fragment {
     public EstadisticasFragment() {}
 
     @SuppressLint("ValidFragment")
-    public EstadisticasFragment(List<Pagos> pagos, List<Plan> plan) {
+    private EstadisticasFragment(List<Pagos> pagos, List<Plan> plan) {
         this.pagos = pagos;
         this.plan = plan;
     }
@@ -57,7 +58,7 @@ public class EstadisticasFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_estadisticas, container, false);
         ButterKnife.bind(this, view);
@@ -85,7 +86,7 @@ public class EstadisticasFragment extends Fragment {
         return view;
     }
 
-    public List<BarEntry> addValuesToBarEntryPagos(){
+    private List<BarEntry> addValuesToBarEntryPagos(){
         List<BarEntry> barEntryList = new ArrayList<>();
         barEntryList.add(new BarEntry(pagado, 0));
         barEntryList.add(new BarEntry(noPagado, 1));
@@ -94,7 +95,7 @@ public class EstadisticasFragment extends Fragment {
 
     }
 
-    public List<String> addValuesToBarEntryLabelsPagos(){
+    private List<String> addValuesToBarEntryLabelsPagos(){
         List<String>  entryLabels = new ArrayList<>();
         entryLabels.add("Pagado");
         entryLabels.add("No Pagado");
@@ -105,12 +106,16 @@ public class EstadisticasFragment extends Fragment {
     private void obtieneStatusPago() {
         for (int x = 0; x < pagos.size(); x++) {
             for (int y = 0; y < pagos.get(x).getEstatusPagos().size(); y++)
-                if(pagos.get(x).getEstatusPagos().get(y).getEstatus().equals("Pagado")) {
-                    pagado++;
-                } else if(pagos.get(x).getEstatusPagos().get(y).getEstatus().equals("No Pagado")) {
-                    noPagado++;
-                } else {
-                    demorado++;
+                switch (pagos.get(x).getEstatusPagos().get(y).getEstatus()) {
+                    case "Pagado":
+                        pagado++;
+                        break;
+                    case "No Pagado":
+                        noPagado++;
+                        break;
+                    default:
+                        demorado++;
+                        break;
                 }
         }
     }
@@ -134,13 +139,17 @@ public class EstadisticasFragment extends Fragment {
     private void obtieneStatusAsignaturas() {
         for (int x = 0; x < plan.size(); x++) {
             for (int y = 0; y < plan.get(x).getMateria().size(); y++)
-                if(plan.get(x).getMateria().get(y).getEstatus().equals("Aprobada")) {
-                aprobada++;
-                } else if(plan.get(x).getMateria().get(y).getEstatus().equals("Cursada")) {
-                cursada++;
-                } else {
-                noCursada++;
-            }
+                switch (plan.get(x).getMateria().get(y).getEstatus()) {
+                    case "Aprobada":
+                        aprobada++;
+                        break;
+                    case "Cursada":
+                        cursada++;
+                        break;
+                    default:
+                        noCursada++;
+                        break;
+                }
         }
     }
 }

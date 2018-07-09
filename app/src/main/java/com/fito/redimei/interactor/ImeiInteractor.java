@@ -12,7 +12,7 @@ import io.reactivex.Observable;
  */
 
 public class ImeiInteractor {
-    private ImeiServicio imeiServicio;
+    private final ImeiServicio imeiServicio;
 
     @Inject
     public ImeiInteractor(ImeiServicio imeiServicio) {

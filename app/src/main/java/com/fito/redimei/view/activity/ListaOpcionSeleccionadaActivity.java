@@ -17,6 +17,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindArray;
 import butterknife.BindView;
@@ -40,7 +41,7 @@ public class ListaOpcionSeleccionadaActivity extends ToolBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_chevron_left);
 
         Bundle bundleExtras = getIntent().getExtras();
         if (bundleExtras != null) {

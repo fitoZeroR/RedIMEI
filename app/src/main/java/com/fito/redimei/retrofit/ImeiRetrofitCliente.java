@@ -4,6 +4,9 @@ import com.fito.redimei.modelo.*;
 import com.fito.redimei.utils.Constantes;
 import com.google.gson.*;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -15,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public abstract class ImeiRetrofitCliente {
     private ImeiRetrofitServicio imeiRetrofitServicio;
 
-    public ImeiRetrofitCliente() {
+    protected ImeiRetrofitCliente() {
         initRetrofit();
     }
 
@@ -25,43 +28,35 @@ public abstract class ImeiRetrofitCliente {
     }
 
     private Retrofit retrofitBuilder() {
-        return new Retrofit.Builder().baseUrl(Constantes.URL)
+        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .build();
+
+        return new Retrofit.Builder()
+                .baseUrl(Constantes.URL)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(getConsumoDeserializer()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
-    public Class<ImeiRetrofitServicio> getConsumoServiceClass() {
+    private Class<ImeiRetrofitServicio> getConsumoServiceClass() {
         return ImeiRetrofitServicio.class;
     }
 
-    public Gson getConsumoDeserializer() {
+    private Gson getConsumoDeserializer() {
         return new GsonBuilder()
                 .setLenient()
-                .registerTypeAdapter(Login.class, (JsonDeserializer<Login>) (json, typeOfT, context) -> {
-                    return new Gson().fromJson(json, Login.class);
-                })
-                .registerTypeAdapter(RecuperarPassword.class, (JsonDeserializer<RecuperarPassword>) (json, typeOfT, context) -> {
-                    return new Gson().fromJson(json, RecuperarPassword.class);
-                })
-                .registerTypeAdapter(PagosAsignaturas.class, (JsonDeserializer<PagosAsignaturas>) (json, typeOfT, context) -> {
-                    return new Gson().fromJson(json, PagosAsignaturas.class);
-                })
-                .registerTypeAdapter(Opciones.class, (JsonDeserializer<Opciones>) (json, typeOfT, context) -> {
-                    return new Gson().fromJson(json, Opciones.class);
-                })
-                .registerTypeAdapter(InformacionPlanteles.class, (JsonDeserializer<InformacionPlanteles>) (json, typeOfT, context) -> {
-                    return new Gson().fromJson(json, InformacionPlanteles.class);
-                })
-                .registerTypeAdapter(EnviarInformacion.class, (JsonDeserializer<EnviarInformacion>) (json, typeOfT, context) -> {
-                    return new Gson().fromJson(json, EnviarInformacion.class);
-                })
-                .registerTypeAdapter(Foto.class, (JsonDeserializer<Foto>) (json, typeOfT, context) -> {
-                    return new Gson().fromJson(json, Foto.class);
-                })
-                .registerTypeAdapter(DescargaBoleta.class, (JsonDeserializer<DescargaBoleta>) (json, typeOfT, context) -> {
-                    return new Gson().fromJson(json, DescargaBoleta.class);
-                })
+                .registerTypeAdapter(Login.class, (JsonDeserializer<Login>) (json, typeOfT, context) -> new Gson().fromJson(json, Login.class))
+                .registerTypeAdapter(RecuperarPassword.class, (JsonDeserializer<RecuperarPassword>) (json, typeOfT, context) -> new Gson().fromJson(json, RecuperarPassword.class))
+                .registerTypeAdapter(PagosAsignaturas.class, (JsonDeserializer<PagosAsignaturas>) (json, typeOfT, context) -> new Gson().fromJson(json, PagosAsignaturas.class))
+                .registerTypeAdapter(Opciones.class, (JsonDeserializer<Opciones>) (json, typeOfT, context) -> new Gson().fromJson(json, Opciones.class))
+                .registerTypeAdapter(InformacionPlanteles.class, (JsonDeserializer<InformacionPlanteles>) (json, typeOfT, context) -> new Gson().fromJson(json, InformacionPlanteles.class))
+                .registerTypeAdapter(EnviarInformacion.class, (JsonDeserializer<EnviarInformacion>) (json, typeOfT, context) -> new Gson().fromJson(json, EnviarInformacion.class))
+                .registerTypeAdapter(Foto.class, (JsonDeserializer<Foto>) (json, typeOfT, context) -> new Gson().fromJson(json, Foto.class))
+                .registerTypeAdapter(DescargaBoleta.class, (JsonDeserializer<DescargaBoleta>) (json, typeOfT, context) -> new Gson().fromJson(json, DescargaBoleta.class))
                 .create();
     }
 

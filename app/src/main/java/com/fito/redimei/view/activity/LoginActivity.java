@@ -38,6 +38,7 @@ import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -69,7 +70,7 @@ public class LoginActivity extends Activity implements ImeiPresenter.View, HasCo
     private ProgressDialog progressDialog;
     private Login loginResponse;
 
-    private Handler mHandler = new Handler(Looper.getMainLooper()) {
+    private final Handler mHandler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
             switch(msg.what){
@@ -224,9 +225,7 @@ public class LoginActivity extends Activity implements ImeiPresenter.View, HasCo
                     }
                 })
 
-                .setNegativeButton(getString(R.string.action_cancel), (dialog, id) -> {
-                    dialog.dismiss();
-                })
+                .setNegativeButton(getString(R.string.action_cancel), (dialog, id) -> dialog.dismiss())
                 .setCancelable(false)
                 .create();
 
@@ -234,7 +233,7 @@ public class LoginActivity extends Activity implements ImeiPresenter.View, HasCo
         // this part will make the soft keyboard automaticall visible
         edtMatriculaRP.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                dialogRecuperaPassword.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                Objects.requireNonNull(dialogRecuperaPassword.getWindow()).setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             }
         });
         dialogRecuperaPassword.show();
@@ -286,11 +285,6 @@ public class LoginActivity extends Activity implements ImeiPresenter.View, HasCo
                 Manifest.permission.GET_ACCOUNTS,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe(granted -> {
-                    if (granted) {
-                        // The permission has been granted//
-                    } else {
-                        // The permission has been denied//
-                    }
                 });
     }
 }

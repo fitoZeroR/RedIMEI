@@ -22,18 +22,18 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Objects;
+
 import static com.fito.redimei.utils.Constantes.BUNDLE_NOMBRE_OPCION;
 
 public class PlantelesActivity extends ToolBarActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private GoogleMap googleMap;
     private GoogleApiClient mGoogleApiClient;
 
-    private Location mLastLocation;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_chevron_left);
 
         Bundle bundleExtras = getIntent().getExtras();
         if (bundleExtras != null) {
@@ -89,10 +89,11 @@ public class PlantelesActivity extends ToolBarActivity implements OnMapReadyCall
         this.googleMap.setMyLocationEnabled(true);
     }
 
+    @SuppressWarnings("deprecation")
     @SuppressLint("MissingPermission")
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
     }
 
     @Override

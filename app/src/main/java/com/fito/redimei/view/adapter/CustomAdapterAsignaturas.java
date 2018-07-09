@@ -2,6 +2,7 @@ package com.fito.redimei.view.adapter;
 
 import android.app.Activity;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,10 +29,10 @@ import static com.fito.redimei.utils.Tools.dpToPx;
  */
 
 public class CustomAdapterAsignaturas extends RecyclerView.Adapter<CustomAdapterAsignaturas.AsignaturasViewHolder> implements Filterable {
-    private List<Plan> plan;
-    private List<Plan> planFiltro;
-    private CustomFilterAsignaturas mFilter;
-    private Activity activity;
+    private final List<Plan> plan;
+    private final List<Plan> planFiltro;
+    private final CustomFilterAsignaturas mFilter;
+    private final Activity activity;
 
     public CustomAdapterAsignaturas(List<Plan> plan, Activity activity) {
         this.plan = plan;
@@ -41,13 +42,14 @@ public class CustomAdapterAsignaturas extends RecyclerView.Adapter<CustomAdapter
         this.activity = activity;
     }
 
+    @NonNull
     @Override
-    public AsignaturasViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AsignaturasViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new AsignaturasViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row_asignaturas_pagos, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(AsignaturasViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AsignaturasViewHolder holder, int position) {
         holder.txvTituloCuatrimestre.setText(planFiltro.get(position).getNombre());
         LinearLayout linearLayout = new LinearLayout(activity);
         for (int x = 0; x < planFiltro.get(position).getMateria().size(); x++) {
@@ -100,15 +102,15 @@ public class CustomAdapterAsignaturas extends RecyclerView.Adapter<CustomAdapter
         @BindView(R.id.lly_contenido_id)
         LinearLayout llyContenido;
 
-        public AsignaturasViewHolder(View itemView) {
+        AsignaturasViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
 
     /*Filtro*/
-    public class CustomFilterAsignaturas extends Filter {
-        private CustomAdapterAsignaturas customAdapterAsignaturas;
+    class CustomFilterAsignaturas extends Filter {
+        private final CustomAdapterAsignaturas customAdapterAsignaturas;
 
         private CustomFilterAsignaturas(CustomAdapterAsignaturas customAdapterAsignaturas) {
             super();

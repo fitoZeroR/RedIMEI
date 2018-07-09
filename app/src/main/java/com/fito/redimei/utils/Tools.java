@@ -10,6 +10,7 @@ import com.fito.redimei.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -24,8 +25,8 @@ public class Tools {
     public static void hideKeyboard(Activity activity) {
         try {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
-        } catch (Exception e) {}
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(Objects.requireNonNull(activity.getCurrentFocus()).getWindowToken(), 0);
+        } catch (Exception ignored) {}
     }
 
     public static void mensajeInformativo(Activity activity, String mensaje, boolean finalizaActividad) {
@@ -68,10 +69,10 @@ public class Tools {
     }
 
     public static boolean isConnectionNetwork(Activity activity) {
-        NetworkInfo netInfo = null;
+        NetworkInfo netInfo;
         ConnectivityManager cm = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
         try {
-            netInfo = cm.getActiveNetworkInfo();
+            netInfo = Objects.requireNonNull(cm).getActiveNetworkInfo();
         } catch (Exception e) {
             e.printStackTrace();
             return false;

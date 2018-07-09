@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindArray;
 import butterknife.BindView;
@@ -35,7 +36,7 @@ public class OpcionesActivity extends ToolBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_chevron_left);
 
         imeiPresenter.consultaListaOpciones();
     }
@@ -109,7 +110,7 @@ public class OpcionesActivity extends ToolBarActivity {
         return OpcionesActivity.this;
     }//ViewSwitcher
 
-    private String cursos = "[\n" +
+    private final String cursos = "[\n" +
             "  {\n" +
             "    \"titulo\": \"AMOR A SÍ MISMO Y AMOR A LOS DEMÁS\"\n" +
             "  },\n" +

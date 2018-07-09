@@ -2,6 +2,7 @@ package com.fito.redimei.view.adapter;
 
 import android.app.Activity;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,10 +31,10 @@ import static com.fito.redimei.utils.Tools.dpToPx;
  */
 
 public class CustomAdapterPagos extends RecyclerView.Adapter<CustomAdapterPagos.PagosViewHolder> implements Filterable {
-    private List<Pagos> pagos;
-    private List<Pagos> pagosFiltro;
-    private CustomFilterPagos mFilter;
-    private Activity activity;
+    private final List<Pagos> pagos;
+    private final List<Pagos> pagosFiltro;
+    private final CustomFilterPagos mFilter;
+    private final Activity activity;
 
     public CustomAdapterPagos(List<Pagos> pagos, Activity activity) {
         this.pagos = pagos;
@@ -43,13 +44,14 @@ public class CustomAdapterPagos extends RecyclerView.Adapter<CustomAdapterPagos.
         this.activity = activity;
     }
 
+    @NonNull
     @Override
-    public CustomAdapterPagos.PagosViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CustomAdapterPagos.PagosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new PagosViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row_asignaturas_pagos, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(CustomAdapterPagos.PagosViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CustomAdapterPagos.PagosViewHolder holder, int position) {
         holder.txvTituloCuatrimestre.setText(pagosFiltro.get(position).getNombre());
 
         LinearLayout linearLayoutVertical = new LinearLayout(activity);
@@ -132,15 +134,15 @@ public class CustomAdapterPagos extends RecyclerView.Adapter<CustomAdapterPagos.
         @BindView(R.id.lly_contenido_id)
         LinearLayout llyContenido;
 
-        public PagosViewHolder(View itemView) {
+        PagosViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
 
     /*Filtro*/
-    public class CustomFilterPagos extends Filter {
-        private CustomAdapterPagos customAdapterPagos;
+    class CustomFilterPagos extends Filter {
+        private final CustomAdapterPagos customAdapterPagos;
 
         private CustomFilterPagos(CustomAdapterPagos customAdapterPagos) {
             super();

@@ -46,7 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ImeiPres
     private ClienteComponent clienteComponent;
     private ProgressDialog progressDialog;
 
-    public ActionBarDrawerToggle mDrawerToggle;
+    ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +111,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ImeiPres
     @Override
     public void muestraRespuestaRecuperarPassword(RecuperarPassword recuperarPassword) {}
 
+    @SuppressWarnings("SameReturnValue")
     protected abstract int getLayoutResource();
 
     private void initializeDagger() {
@@ -123,7 +124,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ImeiPres
         getComponent().inject(this);
     }
 
-    public void animateToBackArrow() {
+    void animateToBackArrow() {
         ValueAnimator anim = ValueAnimator.ofFloat(0f, 1f);
         anim.addUpdateListener(valueAnimator -> {
             float slideOffset = (Float) valueAnimator.getAnimatedValue();
@@ -136,7 +137,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ImeiPres
         anim.start();
     }
 
-    public void animatedToMenu() {
+    void animatedToMenu() {
         ValueAnimator anim = ValueAnimator.ofFloat(0f, 1f);
         anim.addUpdateListener(valueAnimator -> {
             if (mDrawerToggle != null)
@@ -148,14 +149,10 @@ public abstract class BaseActivity extends AppCompatActivity implements ImeiPres
         anim.start();
     }
 
-    public void addFragment(Fragment fragment, int containerViewId, boolean addBackStag) {
+    void addFragment(Fragment fragment) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        if (addBackStag) {
-            transaction.replace(containerViewId, fragment, fragment.getClass().getSimpleName());
-        } else {
-            transaction.replace(containerViewId, fragment);
-        }
+        transaction.replace(R.id.frame_container, fragment, fragment.getClass().getSimpleName());
 
         transaction.commit();
     }

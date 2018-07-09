@@ -47,6 +47,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindArray;
@@ -99,7 +100,7 @@ public class MainActivity extends BaseActivity {
     private PagosFragment pagosFragment;
     private AsignaturasFragment asignaturasFragment;
 
-    private Handler mHandler = new Handler(Looper.getMainLooper()) {
+    private final Handler mHandler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
             switch(msg.what){
@@ -207,7 +208,7 @@ public class MainActivity extends BaseActivity {
 
         // get download service and enqueue file
         DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-        manager.enqueue(request);
+        Objects.requireNonNull(manager).enqueue(request);
     }
 
     private class DonwloadCompleteReceiver extends BroadcastReceiver {
@@ -234,7 +235,7 @@ public class MainActivity extends BaseActivity {
 
     private void inicializaActividad() {
         setTitle(getString(R.string.title_fragment_pagos));
-        addFragment(pagosFragment = PagosFragment.initInstance(pagosAsignaturas.getData().getPagos()), R.id.frame_container, true);
+        addFragment(pagosFragment = PagosFragment.initInstance(pagosAsignaturas.getData().getPagos()));
         asignaturasFragment = AsignaturasFragment.initInstance(pagosAsignaturas.getData().getPlan());
         asignaEventos();
     }
@@ -253,9 +254,7 @@ public class MainActivity extends BaseActivity {
 
         RxView.clicks(txvCerrarSesion)
                 .debounce(500, TimeUnit.MILLISECONDS)
-                .subscribe(aVoid -> {
-                    mHandler.sendEmptyMessage(1);
-                });
+                .subscribe(aVoid -> mHandler.sendEmptyMessage(1));
 
         RxView.clicks(txvDescargaBoleta)
                 .debounce(500, TimeUnit.MILLISECONDS)
@@ -269,9 +268,7 @@ public class MainActivity extends BaseActivity {
 
         RxView.clicks(imvCamara)
                 .debounce(500, TimeUnit.MILLISECONDS)
-                .subscribe(aVoid -> {
-                    mHandler.sendEmptyMessage(3);
-                });
+                .subscribe(aVoid -> mHandler.sendEmptyMessage(3));
     }
 
     private void confingToolBar() {
@@ -307,7 +304,7 @@ public class MainActivity extends BaseActivity {
                     filtroEdt.setVisibility(View.GONE);
                     break;
             }
-            addFragment(selectedFragment, R.id.frame_container, true);
+            addFragment(selectedFragment);
             limpiaFiltro();
             return true;
         });
@@ -403,11 +400,11 @@ public class MainActivity extends BaseActivity {
     }
 
     private String getFilePathFromContentUri(Uri selectedImageUri) {
-        String filePath = null;
+        String filePath;
         String[] filePathColumn = {MediaStore.MediaColumns.DATA};
 
         Cursor cursor = getContentResolver().query(selectedImageUri, filePathColumn, null, null, null);
-        cursor.moveToFirst();
+        Objects.requireNonNull(cursor).moveToFirst();
 
         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
         filePath = cursor.getString(columnIndex);

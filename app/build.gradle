@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     // Support Libraries
     implementation supportDependencies.support
     implementation supportDependencies.design
@@ -51,13 +51,15 @@ dependencies {
     implementation squareDependencies.retrofit
     implementation squareDependencies.adapter_rx_java
     implementation squareDependencies.converter_gson
+    // OKHTTP3
+    implementation okhttp3Dependencies.okhttp3
     // RX Java
     implementation reactiveDependencies.rxjava
     // RX Android
     implementation reactiveDependencies.rxandroid
     // RxBinding
     implementation reactiveDependencies.rxbinding
-    // rxpermissions
+    // RxPermissions
     implementation reactiveDependencies.rxpermissions
     // Logger
     implementation orhanobutDependencies.orhanobut

@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 import static com.fito.redimei.utils.Constantes.SerializedAlumno.NOMBRE;
-import static com.fito.redimei.utils.Constantes.SerializedPagosAsignaturas.*;
 import static com.fito.redimei.utils.Constantes.SerializedPagosAsignaturas.ID_CUATRIMESTRE;
 import static com.fito.redimei.utils.Constantes.SerializedPagosAsignaturas.MATERIAS;
 
