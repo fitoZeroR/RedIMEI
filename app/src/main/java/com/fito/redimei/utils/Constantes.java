@@ -5,9 +5,12 @@ package com.fito.redimei.utils;
  */
 
 public class Constantes {
+    public static final String TAG = "RLM";
     //public static final String URL_WEB_INSTITUCION = "http://www.grupoeducativoimei.edu.mx/nuestra-institucion/";
     //public static final String URL_WEB_AVISO_PRIVACIDAD = "http://www.grupoeducativoimei.edu.mx/aviso-de-privacidad/";
-    public static final String URL = "http://grupoeducativoimei.com/";
+    public static final String URL = "https://grupoeducativoimei.com/";
+    public static final String HOST = "grupoeducativoimei.com";
+    public static final String PUBLIC_KEY_HASH = "sha256/WNSPzhLaMSEYYIfcletlguIAZWhHTc+h03Qdn0oO7zg=";
 
     public static final class Endpoint {
         public static final String URL_OPCIONES = "json/types.json";

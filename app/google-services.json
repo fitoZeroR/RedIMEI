@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1008450905081",
+    "firebase_url": "https://redimei-b6a03.firebaseio.com",
+    "project_id": "redimei-b6a03",
+    "storage_bucket": "redimei-b6a03.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1008450905081:android:9bfb6aa6f36ab98b",
+        "android_client_info": {
+          "package_name": "com.fito.redimei"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1008450905081-senkg94203q1g43ikftsha0o9625pt5f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fito.redimei",
+            "certificate_hash": "e7ff12de7b282e88849cd733e84b334e2add1b1e"
+          }
+        },
+        {
+          "client_id": "1008450905081-vkreen18acf8iklqtua45mdlhhl4meqv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSzRGzPHOLAtc2A4s6LDPe0l8xbK04B8Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1008450905081-vkreen18acf8iklqtua45mdlhhl4meqv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
