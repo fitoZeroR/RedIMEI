@@ -8,6 +8,7 @@ import com.fito.redimei.di.modules.ImeiMainModule;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.security.ProviderInstaller;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.orhanobut.logger.*;
 
 import javax.inject.Inject;
@@ -19,6 +20,8 @@ import javax.inject.Inject;
 public class ImeiAplication extends Application {
     @Inject
     LogAdapter logAdapter;
+    @Inject
+    FirebaseAnalytics mFirebaseAnalytics;
 
     private ImeiMainComponent imeiMainComponent;
 
@@ -46,5 +49,13 @@ public class ImeiAplication extends Application {
 
     public ImeiMainComponent getImeiMainComponent() {
         return imeiMainComponent;
+    }
+
+    /**
+     * Gets the default {@link FirebaseAnalytics} for this {@link Application}.
+     * @return tracker
+     */
+    synchronized public FirebaseAnalytics getDefaultAnalytics() {
+        return mFirebaseAnalytics;
     }
 }

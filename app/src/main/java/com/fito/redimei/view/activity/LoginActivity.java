@@ -34,6 +34,7 @@ import com.fito.redimei.modelo.Opciones;
 import com.fito.redimei.modelo.PagosAsignaturas;
 import com.fito.redimei.modelo.RecuperarPassword;
 import com.fito.redimei.presenter.ImeiPresenter;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -260,6 +261,12 @@ public class LoginActivity extends Activity implements ImeiPresenter.View, HasCo
                 .subscribe(aVoid -> {
                     hideKeyboard(this);
                     if (isConnectionNetwork(this)) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "RLM");
+                        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Consulta No Alumnos");
+                        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+                        ((ImeiAplication) getApplication()).getDefaultAnalytics().logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
                         startActivity(new Intent(this, OpcionesActivity.class));
                     } else {
                         mHandler.sendEmptyMessage(3);

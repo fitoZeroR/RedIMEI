@@ -1,6 +1,7 @@
 package com.fito.redimei.retrofit;
 
 import com.fito.redimei.modelo.*;
+import com.fito.redimei.retrofit.seguridad.TLSSocketFactory;
 import com.fito.redimei.utils.Constantes;
 import com.google.gson.*;
 import com.orhanobut.logger.Logger;

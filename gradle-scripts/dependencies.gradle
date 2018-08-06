@@ -14,6 +14,12 @@ ext {
             maps     : "com.google.android.gms:play-services-maps:${playServicesVersion}"
     ]
 
+    firebaseVersion = '16.0.1'
+    //firebaseVersion = '11.8.0'
+    firebaseDependencies = [
+            analytics : "com.google.firebase:firebase-core:${firebaseVersion}"
+    ]
+
     constraintLayoutVersion = '1.1.0'
     constraintDependencies = [
             constraintLayout: "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}"

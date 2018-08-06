@@ -1,4 +1,4 @@
-package com.fito.redimei.retrofit;
+package com.fito.redimei.retrofit.seguridad;
 
 import java.io.IOException;
 import java.net.InetAddress;

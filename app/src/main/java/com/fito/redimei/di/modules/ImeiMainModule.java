@@ -1,6 +1,7 @@
 package com.fito.redimei.di.modules;
 
 import com.fito.redimei.ImeiAplication;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.orhanobut.logger.*;
 
 import javax.inject.Singleton;
@@ -35,5 +36,11 @@ public class ImeiMainModule {
                 .tag("Services")
                 .build();
         return new AndroidLogAdapter(formatStrategy);
+    }
+
+    @Provides
+    @Singleton
+    FirebaseAnalytics provideFirebaseAnalytics() {
+        return FirebaseAnalytics.getInstance(provideImeiApplicationContext());
     }
 }
