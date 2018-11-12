@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "1008450905081-50g9215ehdcq7cv36nk98mqhams8deuc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fito.redimei",
+            "certificate_hash": "035406ffc8bad8644c0fe44b58ffaebe0df13be7"
+          }
+        },
+        {
           "client_id": "1008450905081-vkreen18acf8iklqtua45mdlhhl4meqv.apps.googleusercontent.com",
           "client_type": 3
         }

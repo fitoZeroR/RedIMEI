@@ -74,6 +74,7 @@ dependencies {
     implementation commonsDependencies.commons
     // Firebase (Analytics)
     implementation firebaseDependencies.analytics
+    implementation firebaseDependencies.cloudMesaging
     // testing
     testImplementation testingDependencies.junit
     //noinspection GradleCompatible

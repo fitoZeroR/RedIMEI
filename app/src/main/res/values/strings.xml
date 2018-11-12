@@ -64,4 +64,6 @@
     <string name="action.cancel">Cancelar</string>
     <string name="action.accept">Aceptar</string>
     <string name="action.enviar">Enviar</string>
+
+    <string name="default_notification_channel_id">Push FCM</string>
 </resources>

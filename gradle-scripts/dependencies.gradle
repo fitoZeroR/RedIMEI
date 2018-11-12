@@ -14,10 +14,12 @@ ext {
             maps     : "com.google.android.gms:play-services-maps:${playServicesVersion}"
     ]
 
-    firebaseVersion = '16.0.1'
+    firebaseVersion = '16.0.5'
     //firebaseVersion = '11.8.0'
+    cloudMessagingVersion = '17.3.4'
     firebaseDependencies = [
-            analytics : "com.google.firebase:firebase-core:${firebaseVersion}"
+            analytics     : "com.google.firebase:firebase-core:${firebaseVersion}",
+            cloudMesaging : "com.google.firebase:firebase-messaging:${cloudMessagingVersion}"
     ]
 
     constraintLayoutVersion = '1.1.0'
