@@ -11,7 +11,7 @@ import io.reactivex.Observable;
  * Created by luisr on 01/11/2017.
  */
 
-public class ImeiInteractor {
+public class ImeiInteractor implements ImeiServicio {
     private final ImeiServicio imeiServicio;
 
     @Inject
@@ -19,34 +19,42 @@ public class ImeiInteractor {
         this.imeiServicio = imeiServicio;
     }
 
-    public Observable<Opciones> consultaListaOpciones() {
+    @Override
+    public Observable<Opciones> consultaOpciones() {
         return imeiServicio.consultaOpciones();
     }
 
-    public Observable<InformacionPlanteles> consultaListaPlanteles() {
+    @Override
+    public Observable<InformacionPlanteles> consultaPlanteles() {
         return imeiServicio.consultaPlanteles();
     }
 
-    public Observable<EnviarInformacion> enviarInformacion(String nombre, String telefono, String correo, String comentarios, String interes) {
+    @Override
+    public Observable<EnviarInformacion> envioInformacion(String nombre, String telefono, String correo, String comentarios, String interes) {
         return imeiServicio.envioInformacion(nombre, telefono, correo, comentarios, interes);
     }
 
+    @Override
     public Observable<Login> loginUsuario(String matricula, String password) {
         return imeiServicio.loginUsuario(matricula, password);
     }
 
-    public Observable<Foto> enviarFoto(String tokenSesion, String foto) {
+    @Override
+    public Observable<Foto> enviaFoto(String tokenSesion, String foto) {
         return imeiServicio.enviaFoto(tokenSesion, foto);
     }
 
-    public Observable<PagosAsignaturas> consultaListaAsignaturasPagos(String tokenSesion) {
+    @Override
+    public Observable<PagosAsignaturas> consultaAsignaturasPagos(String tokenSesion) {
         return imeiServicio.consultaAsignaturasPagos(tokenSesion);
     }
 
+    @Override
     public Observable<DescargaBoleta> descargaBoleta(String tokenSesion) {
         return imeiServicio.descargaBoleta(tokenSesion);
     }
 
+    @Override
     public Observable<RecuperarPassword> cambiaPassword(String matricula) {
         return imeiServicio.cambiaPassword(matricula);
     }

@@ -16,7 +16,8 @@ import com.fito.redimei.di.components.DaggerClienteComponent;
 import com.fito.redimei.di.modules.ActivityModule;
 import com.fito.redimei.di.modules.ClienteModule;
 import com.fito.redimei.modelo.*;
-import com.fito.redimei.presenter.ImeiPresenter;
+import com.fito.redimei.presenter.PresenterI;
+import com.fito.redimei.presenter.View;
 
 import java.util.Objects;
 
@@ -27,12 +28,12 @@ import butterknife.ButterKnife;
 
 import static com.fito.redimei.utils.Tools.mensajeInformativo;
 
-public abstract class ToolBarActivity extends AppCompatActivity implements ImeiPresenter.View, HasComponent<ClienteComponent> {
+public abstract class ToolBarActivity extends AppCompatActivity implements View, HasComponent<ClienteComponent> {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
     @Inject
-    ImeiPresenter imeiPresenter;
+    PresenterI imeiPresenter;
 
     private ClienteComponent clienteComponent;
     private ProgressDialog progressDialog;
@@ -53,12 +54,12 @@ public abstract class ToolBarActivity extends AppCompatActivity implements ImeiP
 
         toolbar.setTitleTextColor(getResources().getColor(R.color.blanco));
 
-        imeiPresenter.setView(this);
+        imeiPresenter.obtieneVista(this);
     }
 
     @Override
     public void onDestroy() {
-        imeiPresenter.terminate();
+        imeiPresenter.finalizar();
         super.onDestroy();
     }
 

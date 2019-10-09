@@ -21,7 +21,8 @@ import com.fito.redimei.di.components.DaggerClienteComponent;
 import com.fito.redimei.di.modules.ActivityModule;
 import com.fito.redimei.di.modules.ClienteModule;
 import com.fito.redimei.modelo.*;
-import com.fito.redimei.presenter.ImeiPresenter;
+import com.fito.redimei.presenter.PresenterI;
+import com.fito.redimei.presenter.View;
 
 import javax.inject.Inject;
 
@@ -34,12 +35,12 @@ import static com.fito.redimei.utils.Tools.mensajeInformativo;
  * Created by luisr on 25/01/2018.
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements ImeiPresenter.View, HasComponent<ClienteComponent> {
+public abstract class BaseActivity extends AppCompatActivity implements View, HasComponent<ClienteComponent> {
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
     @Inject
-    ImeiPresenter imeiPresenter;
+    PresenterI imeiPresenter;
     @Inject
     SharedPreferences preferencias;
 
@@ -55,12 +56,12 @@ public abstract class BaseActivity extends AppCompatActivity implements ImeiPres
         ButterKnife.bind(this);
 
         initializeDagger();
-        imeiPresenter.setView(this);
+        imeiPresenter.obtieneVista(this);
     }
 
     @Override
     public void onDestroy() {
-        imeiPresenter.terminate();
+        imeiPresenter.finalizar();
         super.onDestroy();
     }
 

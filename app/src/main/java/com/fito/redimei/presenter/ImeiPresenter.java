@@ -1,7 +1,6 @@
 package com.fito.redimei.presenter;
 
-import com.fito.redimei.interactor.ImeiInteractor;
-import com.fito.redimei.modelo.*;
+import com.fito.redimei.cliente.ImeiServicio;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
@@ -13,23 +12,18 @@ import io.reactivex.disposables.Disposable;
  * Created by luisr on 01/11/2017.
  */
 
-public class ImeiPresenter extends Presenter<ImeiPresenter.View> {
-    private final ImeiInteractor imeiInteractor;
+public class ImeiPresenter extends Presenter<View> implements PresenterI {
+    private final ImeiServicio imeiInteractor;
 
     @Inject
-    public ImeiPresenter(ImeiInteractor imeiInteractor) {
+    public ImeiPresenter(ImeiServicio imeiInteractor) {
         this.imeiInteractor = imeiInteractor;
     }
 
     @Override
-    public void terminate() {
-        super.terminate();
-        setView(null);
-    }
-
     public void consultaListaOpciones() {
         getView().showLoading();
-        Disposable disposable = imeiInteractor.consultaListaOpciones().subscribe(opciones -> {
+        Disposable disposable = imeiInteractor.consultaOpciones().subscribe(opciones -> {
             if (opciones == null) {
                 getView().showError(null);
             } else {
@@ -47,9 +41,10 @@ public class ImeiPresenter extends Presenter<ImeiPresenter.View> {
         addDisposableObserver(disposable);
     }
 
+    @Override
     public void consultaListaPlanteles() {
         getView().showLoading();
-        Disposable disposable = imeiInteractor.consultaListaPlanteles().subscribe(informacionPlanteles -> {
+        Disposable disposable = imeiInteractor.consultaPlanteles().subscribe(informacionPlanteles -> {
             if (informacionPlanteles == null) {
                 getView().showError(null);
             } else {
@@ -66,9 +61,10 @@ public class ImeiPresenter extends Presenter<ImeiPresenter.View> {
         addDisposableObserver(disposable);
     }
 
+    @Override
     public void enviaInformacion(String nombre, String telefono, String correo, String comentarios, String interes) {
         getView().showLoading();
-        Disposable disposable = imeiInteractor.enviarInformacion(nombre, telefono, correo, comentarios, interes).subscribe(enviarInformacion -> {
+        Disposable disposable = imeiInteractor.envioInformacion(nombre, telefono, correo, comentarios, interes).subscribe(enviarInformacion -> {
             if (enviarInformacion == null) {
                 getView().showError(null);
             } else {
@@ -85,6 +81,7 @@ public class ImeiPresenter extends Presenter<ImeiPresenter.View> {
         addDisposableObserver(disposable);
     }
 
+    @Override
     public void autentificaUsuario(String matricula, String password) {
         getView().showLoading();
         Disposable disposable = imeiInteractor.loginUsuario(matricula, password).subscribe(login -> {
@@ -104,6 +101,7 @@ public class ImeiPresenter extends Presenter<ImeiPresenter.View> {
         addDisposableObserver(disposable);
     }
 
+    @Override
     public void recuperaPassword(String matricula) {
         getView().showLoading();
         Disposable disposable = imeiInteractor.cambiaPassword(matricula).subscribe(recuperarPassword -> {
@@ -123,9 +121,10 @@ public class ImeiPresenter extends Presenter<ImeiPresenter.View> {
         addDisposableObserver(disposable);
     }
 
+    @Override
     public void enviarImagen(String tokenSesion, String imagen) {
         getView().showLoading();
-        Disposable disposable = imeiInteractor.enviarFoto(tokenSesion, imagen).subscribe(foto -> {
+        Disposable disposable = imeiInteractor.enviaFoto(tokenSesion, imagen).subscribe(foto -> {
             if (foto == null) {
                 getView().showError(null);
             } else {
@@ -141,9 +140,10 @@ public class ImeiPresenter extends Presenter<ImeiPresenter.View> {
         addDisposableObserver(disposable);
     }
 
+    @Override
     public void consultaListaAsignaturasPagos(String tokenSesion) {
         //getView().showLoading();
-        Disposable disposable = imeiInteractor.consultaListaAsignaturasPagos(tokenSesion).subscribe(pagosAsignaturas -> {
+        Disposable disposable = imeiInteractor.consultaAsignaturasPagos(tokenSesion).subscribe(pagosAsignaturas -> {
             if (pagosAsignaturas == null) {
                 getView().showError(null);
             } else {
@@ -160,6 +160,7 @@ public class ImeiPresenter extends Presenter<ImeiPresenter.View> {
         addDisposableObserver(disposable);
     }
 
+    @Override
     public void descargaBoleta(String tokenSesion) {
         getView().showLoading();
         Disposable disposable = imeiInteractor.descargaBoleta(tokenSesion).subscribe(descargaBoleta -> {
@@ -180,16 +181,18 @@ public class ImeiPresenter extends Presenter<ImeiPresenter.View> {
         addDisposableObserver(disposable);
     }
 
-    public interface View extends Presenter.View {
-        void showLoading();
-        void hideLoading();
-        void showError(String mensaje);
-        void despliegaOpciones(Opciones opciones);
-        void despliegaPlanteles(InformacionPlanteles informacionPlanteles);
-        void respuestaEnvioInformacion(EnviarInformacion enviarInformacion);
-        void respuestaLogin(Login login);
-        void despliegaPagosAsignaturas(PagosAsignaturas pagosAsignaturas);
-        void compartirBoleta(DescargaBoleta descargaBoleta);
-        void muestraRespuestaRecuperarPassword(RecuperarPassword recuperarPassword);
+    @Override
+    public void obtieneVista(com.fito.redimei.presenter.View imeiView) {
+        setView(imeiView);
+    }
+
+    @Override
+    public void finalizar() {
+        terminate();
+    }
+
+    public void terminate() {
+        super.terminate();
+        setView(null);
     }
 }

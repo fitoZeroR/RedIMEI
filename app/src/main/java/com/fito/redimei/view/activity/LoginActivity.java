@@ -33,7 +33,8 @@ import com.fito.redimei.modelo.Login;
 import com.fito.redimei.modelo.Opciones;
 import com.fito.redimei.modelo.PagosAsignaturas;
 import com.fito.redimei.modelo.RecuperarPassword;
-import com.fito.redimei.presenter.ImeiPresenter;
+import com.fito.redimei.presenter.PresenterI;
+import com.fito.redimei.presenter.View;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -50,7 +51,7 @@ import butterknife.ButterKnife;
 import static com.fito.redimei.utils.Constantes.*;
 import static com.fito.redimei.utils.Tools.*;
 
-public class LoginActivity extends Activity implements ImeiPresenter.View, HasComponent<ClienteComponent> {
+public class LoginActivity extends Activity implements View, HasComponent<ClienteComponent> {
     @BindView(R.id.btn_entrar_id)
     Button btnEntrar;
     @BindView(R.id.txv_presiona_aqui_no_alumno_id)
@@ -63,7 +64,7 @@ public class LoginActivity extends Activity implements ImeiPresenter.View, HasCo
     TextInputEditText edtPassword;
 
     @Inject
-    ImeiPresenter imeiPresenter;
+    PresenterI imeiPresenter;
     @Inject
     SharedPreferences preferencias;
 
@@ -93,7 +94,7 @@ public class LoginActivity extends Activity implements ImeiPresenter.View, HasCo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeDagger();
-        imeiPresenter.setView(this);
+        imeiPresenter.obtieneVista(this);
 
         if(preferencias.getString(MATRICULA, "").equals("") & preferencias.getString(PASSWORD, "").equals("")) {
             setContentView(R.layout.activity_login);
@@ -108,7 +109,7 @@ public class LoginActivity extends Activity implements ImeiPresenter.View, HasCo
 
     @Override
     public void onDestroy() {
-        imeiPresenter.terminate();
+        imeiPresenter.finalizar();
         super.onDestroy();
     }
 

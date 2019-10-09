@@ -6,6 +6,9 @@ import android.preference.PreferenceManager;
 
 import com.fito.redimei.cliente.*;
 import com.fito.redimei.di.PerActivity;
+import com.fito.redimei.interactor.ImeiInteractor;
+import com.fito.redimei.presenter.ImeiPresenter;
+import com.fito.redimei.presenter.PresenterI;
 
 import dagger.*;
 
@@ -19,8 +22,8 @@ public class ClienteModule {
 
     @Provides
     @PerActivity
-    ImeiServicio provideImeiCliente() {
-        return new ImeiCliente();
+    PresenterI providePresenter() {
+        return new ImeiPresenter(new ImeiInteractor(new ImeiCliente()));
     }
 
     @Provides
